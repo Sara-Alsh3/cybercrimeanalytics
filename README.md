@@ -4,8 +4,8 @@
 
 | Name | Student ID | Role |
 |------|------------|------|
-| Sara Alshathr | *(add ID)* | Group Leader |
-| Sarah Althukair | *(add ID)* | Member |
+| Sara Alshathri | *231207* | Group Leader |
+| Sarah Althukair | *231300* | Member |
 
 ---
 
