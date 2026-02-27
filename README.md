@@ -185,9 +185,9 @@ mapred streaming \
 | Arrest Status | Count |
 |--------------|-------|
 | False | 5,876,432 |
-| True | 1,923,568 |
+| True | 2,139,495 |
 
-**Interpretation:** Approximately 24.6% of all reported crimes result in an arrest. This relatively low arrest rate highlights the challenge of apprehending offenders, particularly for property crimes like theft where the perpetrator is often not present when the crime is reported.
+**Interpretation:** Approximately 26.7% of all reported crimes result in an arrest (2,139,495 out of 8,015,927 total records). This relatively low arrest rate highlights the challenge of apprehending offenders, particularly for property crimes like theft where the perpetrator is often not present when the crime is reported.
 
 ---
 
