@@ -15,6 +15,48 @@ This project implements a MapReduce pipeline to analyze the Chicago Police Depar
 
 ---
 
+## Local Testing (No Cluster)
+
+From the project root, you can test any pipeline locally with sample CSV (header + a few rows):
+
+```bash
+# Task 2: Crime type
+echo 'ID,Case Number,Date,Block,IUCR,Primary Type,Description,Location,Arrest,Domestic
+1,CN,09/05/2015 01:30:00 PM,b,0820,THEFT,desc,STREET,false,false
+2,CN,06/12/2018 03:45:00 PM,b,0486,BATTERY,desc,APARTMENT,true,false' | python3 src/mapper_crime_type.py | sort | python3 src/reducer_sum.py
+
+# Task 5: Arrest
+echo 'ID,Case Number,Date,Block,IUCR,Primary Type,Description,Location,Arrest,Domestic
+1,CN,09/05/2015 01:30:00 PM,b,0820,THEFT,desc,STREET,false,false
+2,CN,06/12/2018 03:45:00 PM,b,0486,BATTERY,desc,APARTMENT,true,false' | python3 src/mapper_arrest.py | sort | python3 src/reducer_sum.py
+```
+
+---
+
+## Lab 2: Arrests by District (Optional)
+
+Same approach as Lab 2: filter for `Arrest == true`, count by **District** (column 11).
+
+**Mapper:** `src/mapper_district.py` — Emits `(district, 1)` only when `Arrest` (index 8) is `true`.
+
+**On cluster (sample data):**
+```bash
+./scripts/run_lab2_district.sh
+```
+Or manually:
+```bash
+source /etc/profile.d/hadoop.sh
+mapred streaming \
+  -files src/mapper_district.py,src/reducer_sum.py \
+  -mapper "python3 mapper_district.py" \
+  -reducer "python3 reducer_sum.py" \
+  -input /data/chicago_crimes_sample.csv \
+  -output /user/$USER/lab02/district_arrests
+hdfs dfs -cat /user/$USER/lab02/district_arrests/part-00000
+```
+
+---
+
 ## Task 2: Crime Type Distribution
 
 **Research Question:** What are the most common types of crimes in Chicago?
@@ -174,11 +216,13 @@ se446-project/
 ├── README.md
 ├── src/
 │   ├── reducer_sum.py          # Shared reducer for all tasks
+│   ├── mapper_district.py      # Lab 2: Arrests by district (Arrest=true only)
 │   ├── mapper_crime_type.py    # Task 2: Crime type mapper
 │   ├── mapper_location.py      # Task 3: Location mapper
 │   ├── mapper_year.py          # Task 4: Year mapper
 │   └── mapper_arrest.py        # Task 5: Arrest mapper
 ├── scripts/
+│   ├── run_lab2_district.sh    # Lab 2: Arrests by district (sample data)
 │   ├── run_task2.sh            # Execution script for Task 2
 │   ├── run_task3.sh            # Execution script for Task 3
 │   ├── run_task4.sh            # Execution script for Task 4
