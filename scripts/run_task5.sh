@@ -1,6 +1,6 @@
 #!/bin/bash
 # Task 5: Arrest Analysis
-# Run this script from the cluster after sourcing Hadoop environment
+# Run this script from the project root on the cluster
 
 source /etc/profile.d/hadoop.sh
 
